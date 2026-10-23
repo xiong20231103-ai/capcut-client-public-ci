@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "batchId": "verify-three-20260721",
+  "date": "7.21",
+  "createdAt": "2026-07-21T12:12:00+08:00",
+  "statusFile": "E:\\Backup\\Documents\\New project 3\\capcut-auto-caption-client\\data\\verification\\verify-three.status.json",
+  "tasks": [
+    {
+      "taskId": "verify-three-001",
+      "date": "7.21",
+      "project": "\u5b9e\u4f53\u673a",
+      "material": "\u51c0\u767d\u677f",
+      "language": "\u82f1\u8bed",
+      "languageCode": "en",
+      "number": "001",
+      "sequence": 1,
+      "videoPath": "E:\\生\u6210\u89c6\u9891\\7.21\\\u5b9e\u4f53\u673a\\\u5b9e\u4f53\u673a\u51c0\u767d\u677f_\u5b9e\u4f53\u673a_\u51c0\u767d\u677f_\u82f1\u8bed_remote-inbox-20260721022128-d475c8cb-01_\u51c0\u767d\u677f-\u82f1\u8bed-2_0001.mp4",
+      "audioPath": "E:\\音\u9891\\\u5b9e\u4f53\u673a\u97f3\u9891\\\u51c0\u767d\u677f\\7.21\\\u5b9e\u4f53\u673a_\u51c0\u767d\u677f_\u82f1\u8bed_remote-inbox-20260721022128-d475c8cb-01_\u51c0\u767d\u677f-\u82f1\u8bed-2.mp3",
+      "subtitleSourcePaths": [],
+      "finalOutputPath": "E:\\Backup\\Documents\\New project 3\\capcut-auto-caption-client\\data\\verification\\verify-three-001.mp4",
+      "status": "waiting_capcut",
+      "error": "",
+      "selected": true
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+name: Sanitized CapCut client CI
+on: [push, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Core tests
+        shell: powershell
+        run: .\scripts\Test.ps1
+      - name: Build
+        shell: powershell
+        run: .\scripts\Build.ps1 -OutputPath "$env:RUNNER_TEMP\CapCutBatchClient.exe"

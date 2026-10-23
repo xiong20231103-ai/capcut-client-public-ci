@@ -1,0 +1,461 @@
+{
+    "CapCutPath":  "",
+    "RequirePinnedCapCutVersion":  false,
+    "PinnedCapCutVersion":  "",
+    "PinnedCapCutSha256":  "",
+    "DisabledCapCutUpdaterPath":  "",
+    "DisabledCapCutUpdaterSha256":  "",
+    "OutputDirectory":  "%USERPROFILE%\\Videos\\CapCutExports",
+    "ExportExtension":  ".mp4",
+    "Language":  "zh-CN",
+    "DefaultProjectName":  "ProjectA",
+    "DefaultMaterialName":  "",
+    "DefaultLanguageName":  "西班牙",
+    "DefaultOutputPrefix":  "ProjectA西班牙",
+    "SharedAudioPath":  "",
+    "SampleDirectory":  "",
+    "SamplePath":  "",
+    "SampleSpeed":  3.63,
+    "StartSequence":  1,
+    "ExportResolution":  "2K",
+    "DefaultSubtitleStylePreset":  "Default",
+    "EnableTaskScopedDraftRoot":  true,
+    "UseLocalActiveDraftDirectory":  true,
+    "LastCategoryName":  "ProjectA",
+    "CategoryVideoDirectories":  {},
+    "CategoryAudioDirectories":  {},
+    "ExampleBrandCSampleDirectory":  "",
+    "EntityNormalSampleDirectory":  "",
+    "EntityPuSampleDirectory":  "",
+    "CompanySubtitleFont":  "ZY Modern",
+    "CompanySubtitleFontSize":  10,
+    "ProcessNames":  [
+                         "JianyingPro",
+                         "CapCut"
+                     ],
+    "MainWindowNames":  [
+                            "剪映",
+                            "CapCut"
+                        ],
+    "RetryCount":  2,
+    "CaptionFallbackSeconds":  35,
+    "Timeouts":  {
+                     "LaunchSeconds":  60,
+                     "CreateProjectSeconds":  30,
+                     "ImportSeconds":  90,
+                     "TimelineSeconds":  30,
+                     "CaptionSeconds":  600,
+                     "ExportSeconds":  900,
+                     "ControlSeconds":  12
+                 },
+    "Locators":  {
+                     "HomeProClose":  {
+                                          "Names":  [
+                                                        "关闭",
+                                                        "Close"
+                                                    ],
+                                          "AutomationIds":  [
+
+                                                            ],
+                                          "RelativeX":  0.23,
+                                          "RelativeY":  0.114,
+                                          "HasCoordinate":  true,
+                                          "HasSemanticSelector":  true
+                                      },
+                     "SubscriptionClose":  {
+                                               "Names":  [
+                                                             "关闭",
+                                                             "Close"
+                                                         ],
+                                               "AutomationIds":  [
+
+                                                                 ],
+                                               "RelativeX":  0.586,
+                                               "RelativeY":  0.286,
+                                               "HasCoordinate":  true,
+                                               "HasSemanticSelector":  true
+                                           },
+                     "DialogDismiss":  {
+                                           "Names":  [
+                                                         "知道了",
+                                                         "确定",
+                                                         "OK",
+                                                         "Got it"
+                                                     ],
+                                           "AutomationIds":  [
+
+                                                             ],
+                                           "RelativeX":  0.5,
+                                           "RelativeY":  0.553,
+                                           "HasCoordinate":  true,
+                                           "HasSemanticSelector":  true
+                                       },
+                     "ConfirmNewProject":  {
+                                               "Names":  [
+                                                             "确认",
+                                                             "是",
+                                                             "Yes",
+                                                             "Confirm"
+                                                         ],
+                                               "AutomationIds":  [
+
+                                                                 ],
+                                               "RelativeX":  0.475,
+                                               "RelativeY":  0.532,
+                                               "HasCoordinate":  true,
+                                               "HasSemanticSelector":  true
+                                           },
+                     "CreateProject":  {
+                                           "Names":  [
+                                                         "开始创作",
+                                                         "新建项目",
+                                                         "Create project",
+                                                         "New project"
+                                                     ],
+                                           "AutomationIds":  [
+
+                                                             ],
+                                           "RelativeX":  0.493,
+                                           "RelativeY":  0.081,
+                                           "HasCoordinate":  true,
+                                           "HasSemanticSelector":  true
+                                       },
+                     "Import":  {
+                                    "Names":  [
+                                                  "导入",
+                                                  "导入媒体",
+                                                  "Import",
+                                                  "Import media"
+                                              ],
+                                    "AutomationIds":  [
+
+                                                      ],
+                                    "RelativeX":  0.195,
+                                    "RelativeY":  0.282,
+                                    "HasCoordinate":  true,
+                                    "HasSemanticSelector":  true
+                                },
+                     "MediaItem":  {
+                                       "Names":  [
+
+                                                 ],
+                                       "AutomationIds":  [
+
+                                                         ],
+                                       "RelativeX":  0.078,
+                                       "RelativeY":  0.13,
+                                       "HasCoordinate":  true,
+                                       "HasSemanticSelector":  false
+                                   },
+                     "MediaSearchField":  {
+                                               "Names":  [
+
+                                                         ],
+                                               "AutomationIds":  [
+
+                                                                 ],
+                                               "RelativeX":  0,
+                                               "RelativeY":  0,
+                                               "HasCoordinate":  false,
+                                               "HasSemanticSelector":  false
+                                           },
+                     "TimelineDrop":  {
+                                          "Names":  [
+
+                                                    ],
+                                          "AutomationIds":  [
+
+                                                            ],
+                                          "RelativeX":  0.1,
+                                          "RelativeY":  0.76,
+                                          "HasCoordinate":  true,
+                                          "HasSemanticSelector":  false
+                                      },
+                     "VideoTrackMute":  {
+                                            "Names":  [
+                                                          "静音",
+                                                          "Mute"
+                                                      ],
+                                            "AutomationIds":  [
+
+                                                              ],
+                                            "RelativeX":  0.037,
+                                            "RelativeY":  0.817,
+                                            "HasCoordinate":  true,
+                                            "HasSemanticSelector":  true
+                                        },
+                     "AudioItem":  {
+                                       "Names":  [
+
+                                                 ],
+                                       "AutomationIds":  [
+
+                                                         ],
+                                       "RelativeX":  0.129,
+                                       "RelativeY":  0.13,
+                                       "HasCoordinate":  true,
+                                       "HasSemanticSelector":  false
+                                   },
+                     "AudioTimelineDrop":  {
+                                               "Names":  [
+
+                                                         ],
+                                               "AutomationIds":  [
+
+                                                                 ],
+                                               "RelativeX":  0.07,
+                                               "RelativeY":  0.875,
+                                               "HasCoordinate":  true,
+                                               "HasSemanticSelector":  false
+                                           },
+                     "TextPanel":  {
+                                       "Names":  [
+                                                     "文本",
+                                                     "字幕",
+                                                     "Text",
+                                                     "Captions"
+                                                 ],
+                                       "AutomationIds":  [
+
+                                                         ],
+                                       "RelativeX":  0.051,
+                                       "RelativeY":  0.035,
+                                       "HasCoordinate":  true,
+                                       "HasSemanticSelector":  true
+                                   },
+                     "AutoCaption":  {
+                                         "Names":  [
+                                                       "智能字幕",
+                                                       "识别字幕",
+                                                       "自动字幕",
+                                                       "Auto captions"
+                                                   ],
+                                         "AutomationIds":  [
+
+                                                           ],
+                                         "RelativeX":  0.025,
+                                         "RelativeY":  0.187,
+                                         "HasCoordinate":  true,
+                                         "HasSemanticSelector":  true
+                                     },
+                     "StartRecognition":  {
+                                              "Names":  [
+                                                            "开始识别",
+                                                            "识别",
+                                                            "Generate",
+                                                            "Start"
+                                                        ],
+                                              "AutomationIds":  [
+
+                                                                ],
+                                              "RelativeX":  0.315,
+                                              "RelativeY":  0.607,
+                                              "HasCoordinate":  true,
+                                              "HasSemanticSelector":  true
+                                          },
+                     "Export":  {
+                                    "Names":  [
+                                                  "导出",
+                                                  "Export"
+                                              ],
+                                    "AutomationIds":  [
+
+                                                      ],
+                                    "RelativeX":  0.943,
+                                    "RelativeY":  0.014,
+                                    "HasCoordinate":  true,
+                                    "HasSemanticSelector":  true
+                                },
+                     "ExportNameField":  {
+                                             "Names":  [
+                                                           "名称",
+                                                           "文件名",
+                                                           "Name",
+                                                           "File name"
+                                                       ],
+                                             "AutomationIds":  [
+
+                                                               ],
+                                             "RelativeX":  0.807,
+                                             "RelativeY":  0.168,
+                                             "HasCoordinate":  true,
+                                             "HasSemanticSelector":  true
+                                         },
+                     "ExportPathField":  {
+                                             "Names":  [
+                                                           "导出至",
+                                                           "保存至",
+                                                           "位置",
+                                                           "Save to",
+                                                           "Location"
+                                                       ],
+                                             "AutomationIds":  [
+
+                                                               ],
+                                             "RelativeX":  0.782,
+                                             "RelativeY":  0.223,
+                                             "HasCoordinate":  true,
+                                             "HasSemanticSelector":  true
+                                         },
+                     "ExportConfirm":  {
+                                           "Names":  [
+                                                         "导出",
+                                                         "Export"
+                                                     ],
+                                           "AutomationIds":  [
+
+                                                             ],
+                                           "RelativeX":  0.814,
+                                           "RelativeY":  0.957,
+                                           "HasCoordinate":  true,
+                                           "HasSemanticSelector":  true
+                                       },
+                     "ImportedMedia":  {
+                                           "Names":  [
+                                                         "已导入",
+                                                         "Imported media"
+                                                     ],
+                                           "AutomationIds":  [
+
+                                                             ],
+                                           "RelativeX":  -1,
+                                           "RelativeY":  -1,
+                                           "HasCoordinate":  false,
+                                           "HasSemanticSelector":  true
+                                       },
+                     "AddToTimeline":  {
+                                           "Names":  [
+                                                         "添加到轨道",
+                                                         "添加到时间线",
+                                                         "Add to timeline"
+                                                     ],
+                                           "AutomationIds":  [
+
+                                                             ],
+                                           "RelativeX":  -1,
+                                           "RelativeY":  -1,
+                                           "HasCoordinate":  false,
+                                           "HasSemanticSelector":  true
+                                       },
+                     "Recognizing":  {
+                                         "Names":  [
+                                                       "正在识别",
+                                                       "识别中",
+                                                       "Generating captions"
+                                                   ],
+                                         "AutomationIds":  [
+
+                                                           ],
+                                         "RelativeX":  -1,
+                                         "RelativeY":  -1,
+                                         "HasCoordinate":  false,
+                                         "HasSemanticSelector":  true
+                                     },
+                     "SubtitleTrack":  {
+                                           "Names":  [
+                                                         "字幕轨道",
+                                                         "文本轨道",
+                                                         "Caption track",
+                                                         "Subtitle track"
+                                                     ],
+                                           "AutomationIds":  [
+
+                                                             ],
+                                           "RelativeX":  -1,
+                                           "RelativeY":  -1,
+                                           "HasCoordinate":  false,
+                                           "HasSemanticSelector":  true
+                                       },
+                     "AutoCaptionComplete":  {
+                                                 "Names":  [
+                                                               "重新识别",
+                                                               "识别完成",
+                                                               "Regenerate"
+                                                           ],
+                                                 "AutomationIds":  [
+
+                                                                   ],
+                                                 "RelativeX":  -1,
+                                                 "RelativeY":  -1,
+                                                 "HasCoordinate":  false,
+                                                 "HasSemanticSelector":  true
+                                             },
+                     "ExportDone":  {
+                                        "Names":  [
+                                                      "完成",
+                                                      "返回首页",
+                                                      "Done",
+                                                      "Back to home"
+                                                  ],
+                                        "AutomationIds":  [
+
+                                                          ],
+                                        "RelativeX":  -1,
+                                        "RelativeY":  -1,
+                                        "HasCoordinate":  false,
+                                        "HasSemanticSelector":  true
+                                    },
+                     "BackToHome":  {
+                                        "Names":  [
+                                                      "返回首页",
+                                                      "主页",
+                                                      "Home",
+                                                      "Back"
+                                                  ],
+                                        "AutomationIds":  [
+
+                                                          ],
+                                        "RelativeX":  -1,
+                                        "RelativeY":  -1,
+                                        "HasCoordinate":  false,
+                                        "HasSemanticSelector":  true
+                                    },
+                     "SubtitleTrackProbe":  {
+                                                "Names":  [
+
+                                                          ],
+                                                "AutomationIds":  [
+
+                                                                  ],
+                                                "RelativeX":  0.15,
+                                                "RelativeY":  0.793,
+                                                "HasCoordinate":  true,
+                                                "HasSemanticSelector":  false
+                                            },
+                     "CaptionApplyAll":  {
+                                               "Names":  [
+                                                             "对全部主字幕生效",
+                                                             "Apply to all main captions",
+                                                             "Apply to all captions"
+                                                         ],
+                                               "AutomationIds":  [],
+                                               "RelativeX":  -1,
+                                               "RelativeY":  -1
+                                           },
+                     "CaptionFontField":  {
+                                                "Names":  [
+                                                              "字体",
+                                                              "Font"
+                                                          ],
+                                                "AutomationIds":  [],
+                                                "RelativeX":  -1,
+                                                "RelativeY":  -1
+                                            },
+                     "CaptionFontSizeField":  {
+                                                    "Names":  [
+                                                                  "字号",
+                                                                  "Font size",
+                                                                  "Size"
+                                                              ],
+                                                    "AutomationIds":  [],
+                                                    "RelativeX":  -1,
+                                                    "RelativeY":  -1
+                                                },
+                     "CaptionCompanyPreset":  {
+                                                   "Names":  [],
+                                                   "AutomationIds":  [],
+                                                   "RelativeX":  -1,
+                                                   "RelativeY":  -1
+                                            }
+                 }
+}

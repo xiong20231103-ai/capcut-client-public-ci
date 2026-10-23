@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "batchId": "verify-one-20260721",
+  "date": "7.21",
+  "createdAt": "2026-07-21T11:35:00+08:00",
+  "statusFile": "E:\\Backup\\Documents\\New project 3\\capcut-auto-caption-client\\data\\verification\\verify-one.status.json",
+  "tasks": [
+    {
+      "taskId": "verify-one-001",
+      "date": "7.21",
+      "project": "ProjectB",
+      "material": "净白板",
+      "language": "英语",
+      "languageCode": "en",
+      "number": "001",
+      "sequence": 1,
+      "videoPath": "E:\\生成视频\\7.21\\ProjectB\\ProjectB净白板_ProjectB_净白板_英语_remote-inbox-20260721022128-d475c8cb-01_净白板-英语-2_0001.mp4",
+      "audioPath": "E:\\音频\\ProjectB音频\\净白板\\7.21\\ProjectB_净白板_英语_remote-inbox-20260721022128-d475c8cb-01_净白板-英语-2.mp3",
+      "subtitleSourcePaths": [],
+      "finalOutputPath": "E:\\Backup\\Documents\\New project 3\\capcut-auto-caption-client\\data\\verification\\verify-one-001.mp4",
+      "status": "waiting_capcut",
+      "error": "",
+      "selected": true
+    }
+  ]
+}
