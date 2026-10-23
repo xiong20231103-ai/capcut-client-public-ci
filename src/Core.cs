@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Web.Script.Serialization;
 
-[assembly: System.Reflection.AssemblyFileVersion("0.6.26.0")]
+[assembly: System.Reflection.AssemblyFileVersion("0.6.27.0")]
 
 namespace CapCutBatchClient
 {
@@ -34,7 +34,7 @@ namespace CapCutBatchClient
 
     public static class ClientRuntimeIdentity
     {
-        public const string Version = "0.6.26";
+        public const string Version = "0.6.27";
         public static readonly string ExecutablePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
         private static string buildHash;
         public static string BuildHash {

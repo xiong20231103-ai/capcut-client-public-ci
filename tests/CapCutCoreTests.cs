@@ -1728,6 +1728,25 @@ internal static class CapCutCoreTests
         Assert(!CaptionRecognitionStatePolicy.IsCommandAccepted(
                 false, false, false, 0),
             "an unchanged button without progress evidence must still fail closed");
+        Assert(CaptionRecognitionStatePolicy.ShouldReclickStalledRecognition(false, true, false),
+            "an idle panel with no captions after the stall window must allow one re-click");
+        Assert(!CaptionRecognitionStatePolicy.ShouldReclickStalledRecognition(true, true, false),
+            "a live progress dialog must never be re-clicked even if the button is painted behind it");
+        Assert(!CaptionRecognitionStatePolicy.ShouldReclickStalledRecognition(false, false, false),
+            "an unknown panel state (button not visible) must keep waiting without clicking");
+        Assert(!CaptionRecognitionStatePolicy.ShouldReclickStalledRecognition(false, true, true),
+            "persisted captions must never be duplicated by a re-click");
+        Assert(ExportCompletionClosePolicy.MayPostClose(true, false, false, true) &&
+                ExportCompletionClosePolicy.MayPostClose(false, true, false, true) &&
+                ExportCompletionClosePolicy.MayPostClose(false, false, true, true),
+            "a proven completion page of the same CapCut process may receive one window close");
+        Assert(!ExportCompletionClosePolicy.MayPostClose(false, false, false, true),
+            "an unproven export window (possibly the settings page) must never be closed");
+        Assert(!ExportCompletionClosePolicy.MayPostClose(true, true, true, false),
+            "a window from another process must never be closed");
+        Assert(CaptionRecognitionStatePolicy.StallCheckSeconds > 110 &&
+                CaptionRecognitionStatePolicy.StallCheckSeconds < 600,
+            "the stall check must sit after every observed success and before the step timeout");
     }
 
     private static void TestInteractionVisionFailureReplay()

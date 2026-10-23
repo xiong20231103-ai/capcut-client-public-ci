@@ -40,6 +40,31 @@ namespace CapCutBatchClient
             return progressSurface || subtitleTrack || completionMarker ||
                 absentButtonFrames >= 2;
         }
+
+        // Successful recognitions finish within 110 s (537 runs, 2026-10).
+        // Past this point an idle panel means the first click never started.
+        internal const int StallCheckSeconds = 150;
+
+        // Re-click only when CapCut is visibly idle: no captions persisted,
+        // no progress surface, and the start button is still offered.
+        // Anything else (progress, unknown state) keeps waiting untouched.
+        internal static bool ShouldReclickStalledRecognition(bool progressSurface,
+            bool startButtonVisible, bool draftHasCaptions)
+        {
+            return !progressSurface && startButtonVisible && !draftHasCaptions;
+        }
+    }
+
+    internal static class ExportCompletionClosePolicy
+    {
+        // A window close is only safe on a proven completion page: before the
+        // export finishes the same window is the settings page, and closing it
+        // would cancel the export.
+        internal static bool MayPostClose(bool completionByOcr, bool completionByUi,
+            bool stableOutputKnown, bool sameCapCutProcess)
+        {
+            return sameCapCutProcess && (completionByOcr || completionByUi || stableOutputKnown);
+        }
     }
 
     internal sealed class AudioTimelineEvidence

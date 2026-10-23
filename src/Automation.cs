@@ -4072,6 +4072,7 @@ public sealed class CapCutAutomation : ICapCutAutomation, IDraftTaskIdentity, IC
             string previousCaptionSignature = "";
             int stableCaptionReads = 0;
             int nextWaitNoticeSeconds = 30;
+            bool stallChecked = false;
             while (watch.Elapsed < TimeSpan.FromSeconds(timeoutSeconds)) {
                 token.ThrowIfCancellationRequested();
                 string signature = ReadCommittedCaptionSignature();
@@ -4083,6 +4084,11 @@ public sealed class CapCutAutomation : ICapCutAutomation, IDraftTaskIdentity, IC
                     logger.Info("草稿字幕片段已连续三次稳定落盘，允许保存字幕检查点");
                     return;
                 }
+                if (!stallChecked && String.IsNullOrWhiteSpace(signature) &&
+                    watch.Elapsed.TotalSeconds >= CaptionRecognitionStatePolicy.StallCheckSeconds) {
+                    stallChecked = true;
+                    RecoverStalledCaptionRecognition(timeoutSeconds, token);
+                }
                 // CapCut can keep a visible recognition dialog open while its
                 // cloud transcription is still running.  Do not replace the
                 // configured 600-second caption step with the legacy 90-second
@@ -4092,15 +4098,51 @@ public sealed class CapCutAutomation : ICapCutAutomation, IDraftTaskIdentity, IC
                 // recognition distinguishable from a frozen UI.
                 if (watch.Elapsed.TotalSeconds >= nextWaitNoticeSeconds) {
                     logger.Info(String.Format(CultureInfo.InvariantCulture,
-                        "智能字幕仍在等待草稿字幕轨；已等待 {0}s / 上限 {1}s；不会重复点击识别",
+                        "智能字幕仍在等待草稿字幕轨；已等待 {0}s / 上限 {1}s；仅在界面空闲停滞时补点一次",
                         (int)watch.Elapsed.TotalSeconds, timeoutSeconds));
                     nextWaitNoticeSeconds += 30;
                 }
                 Thread.Sleep(1000);
             }
             throw new InvalidOperationException(String.Format(CultureInfo.InvariantCulture,
-                "CAPCUT_CAPTION_RECOGNITION_TIMEOUT: 等待 {0}s 后草稿仍无可识别字幕轨；已保留草稿，未重复点击识别",
+                "CAPCUT_CAPTION_RECOGNITION_TIMEOUT: 等待 {0}s 后草稿仍无可识别字幕轨；已保留草稿，停滞补点最多一次",
                 timeoutSeconds));
+        }
+
+        // One bounded look at the UI when the draft still has no captions long
+        // after every successful recognition would have finished. Re-clicks at
+        // most once per caption step, and only on a visibly idle panel.
+        private void RecoverStalledCaptionRecognition(int timeoutSeconds, CancellationToken token)
+        {
+            DismissEnvironmentCheckWindow();
+            RefreshWindow();
+            string evidence;
+            bool progress = TryDetectCaptionRecognitionProgress(true, out evidence);
+            bool buttonVisible = locator.IsDynamicCaptionRecognitionButtonVisible(mainWindow);
+            string shot = "capcut-caption-stall-" +
+                DateTime.Now.ToString("yyyyMMdd-HHmmss", CultureInfo.InvariantCulture) + ".png";
+            CaptureMainWindow(shot);
+            if (!CaptionRecognitionStatePolicy.ShouldReclickStalledRecognition(
+                    progress, buttonVisible, false)) {
+                logger.Info(String.Format(CultureInfo.InvariantCulture,
+                    "智能字幕已等待 {0}s 草稿仍无字幕；界面{1}，继续等待且不补点。证据截图 {2}",
+                    CaptionRecognitionStatePolicy.StallCheckSeconds,
+                    progress ? "仍在识别：" + evidence : "开始按钮不可见、状态不明", shot));
+                return;
+            }
+            logger.Warn(String.Format(CultureInfo.InvariantCulture,
+                "智能字幕已等待 {0}s：草稿无字幕、无识别进度且开始按钮仍可见，判定上次点击未生效；补点一次（本步骤仅此一次）。证据截图 {1}",
+                CaptionRecognitionStatePolicy.StallCheckSeconds, shot));
+            FocusForCoordinateAction(token);
+            bool clicked = locator.ClickSemanticOnly("StartRecognition", mainWindow) ||
+                locator.ClickDynamicCaptionRecognitionButton(
+                    mainWindow, Math.Min(6, Math.Max(2, timeoutSeconds)), token);
+            if (!clicked) {
+                throw new InvalidOperationException(
+                    "CAPTION_START_BUTTON_NOT_FOUND: 字幕识别停滞后补点时未找到唯一可确认的“开始识别”按钮；已停止。");
+            }
+            EnsureCaptionRecognitionStarted(token);
+            CaptureMainWindow("capcut-after-start-recognition-retry.png");
         }
 
         private string ReadCommittedCaptionSignature()
@@ -4148,8 +4190,12 @@ public sealed class CapCutAutomation : ICapCutAutomation, IDraftTaskIdentity, IC
                 bool progressSurface = TryDetectCaptionRecognitionProgress(
                     allowOcr, out progressEvidence);
                 if (allowOcr) lastOcrProbeUtc = DateTime.UtcNow;
-                bool subtitleTrack = locator.WaitForCaptionClip(
-                    "SubtitleTrackProbe", mainWindow, 1, token);
+                // Only captions newly persisted in the draft count. The pixel
+                // probe reported a track 0.1 s after the click on 10-22 01:23
+                // while the draft never received one (600 s timeout).
+                string captionsNow = ReadCaptionSignatureOrEmpty();
+                bool subtitleTrack = !String.IsNullOrWhiteSpace(captionsNow) &&
+                    !String.Equals(captionsNow, captionsBeforeClick, StringComparison.Ordinal);
                 bool completionMarker = locator.Exists("SubtitleTrack", mainWindow) ||
                     locator.Exists("AutoCaptionComplete", mainWindow);
                 if (!locator.IsDynamicCaptionRecognitionButtonVisible(mainWindow)) absentFrames++;
@@ -4159,8 +4205,10 @@ public sealed class CapCutAutomation : ICapCutAutomation, IDraftTaskIdentity, IC
                     if (progressSurface) {
                         logger.Info("已确认智能字幕识别进度已启动：" + progressEvidence +
                             "；弹窗后的开始按钮即使仍可见也不再否决本次命令。");
-                    } else if (subtitleTrack || completionMarker) {
-                        logger.Info("开始识别后已立即检测到字幕轨或完成标记");
+                    } else if (subtitleTrack) {
+                        logger.Info("开始识别后草稿已写入新的字幕轨");
+                    } else if (completionMarker) {
+                        logger.Info("开始识别后已检测到完成标记");
                     } else {
                         logger.Info("开始识别按钮已连续两帧消失，确认 CapCut 已接受本次字幕识别命令。");
                     }
@@ -6657,6 +6705,23 @@ public sealed class CapCutAutomation : ICapCutAutomation, IDraftTaskIdentity, IC
             SleepChecked(500, token);
             bool closed = !IsExportWindowCandidate(
                 locator.ElementFromWindow(completionHandle), mainHandle);
+            // The same close coordinate works on most pages but was dropped 13
+            // times in 178 (10-16, 10-22). Once the page is proved to be this
+            // export's completion surface, ask that window alone to close; the
+            // editor and the export button are never touched.
+            if (!closed && ExportCompletionClosePolicy.MayPostClose(
+                    completionByOcr, completionByUi, stableOutputKnown,
+                    NativeMethods.BelongsToSameProcess(mainHandle, completionHandle))) {
+                NativeMethods.PostMessage(completionHandle, NativeMethods.WM_CLOSE,
+                    IntPtr.Zero, IntPtr.Zero);
+                logger.Warn("导出完成页点击与 Esc 后仍在；已向经核实的完成页窗口发送一次关闭消息");
+                Stopwatch posted = Stopwatch.StartNew();
+                while (!closed && posted.Elapsed < TimeSpan.FromSeconds(3)) {
+                    SleepChecked(200, token);
+                    closed = !IsExportWindowCandidate(
+                        locator.ElementFromWindow(completionHandle), mainHandle);
+                }
+            }
             if (closed) activeExportHandle = IntPtr.Zero;
             return closed;
         }
